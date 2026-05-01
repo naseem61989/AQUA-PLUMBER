@@ -1,0 +1,6 @@
+# Netlify Redirects
+/* /index.html    200
+/pages/* /pages/:splat    200
+/services/* /services/:splat    200
+/categories/* /categories/:splat    200
+/blog/* /blog/:splat    200

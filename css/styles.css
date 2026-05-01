@@ -1,0 +1,999 @@
+/* Main Stylesheet for Best Plumber Dubai Water Pump Services */
+/* Generated: 2026-03-11 21:57:04 */
+
+:root {
+    --primary: #005f73;
+    --secondary: #0a9396;
+    --accent: #94d2bd;
+    --gold: #FFD700;
+    --gold-secondary: #D4AF37;
+    --gold-light: #FFF8DC;
+    --silver: #e5e5e5;
+    --dark: #0f172a;
+    --text-dark: #0f172a;
+    --text-gray: #64748b;
+    --light-bg: #f8fafc;
+    --white: #ffffff;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+    --border-radius: 8px;
+    --transition: all 0.3s ease;
+    --container-width: 1200px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Outfit', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background: var(--white);
+}
+
+#v360-wrapper .container {
+    max-width: var(--container-width);
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+#v360-wrapper .section {
+    padding: 60px 0;
+    position: relative;
+}
+
+#v360-wrapper .bg-gray {
+    background-color: var(--light-bg);
+}
+
+/* ===== HERO SECTION ===== */
+#v360-wrapper .hero {
+    position: relative;
+    padding: 60px 0 80px;
+    background-size: cover;
+    background-position: center;
+    color: white;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+}
+
+#v360-wrapper .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+
+#v360-wrapper .hero-content {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+    width: 100%;
+}
+
+/* Desktop Specifics */
+@media (min-width: 769px) {
+    #v360-wrapper .text-col { text-align: left; }
+    #v360-wrapper .form-col { max-width: 100%; }
+    #v360-wrapper .hero-title { font-size: 3.5rem; }
+}
+
+/* ===== MOBILE ORDERING FIX ===== */
+@media (max-width: 768px) {
+    #v360-wrapper .hero {
+        padding: 40px 0 60px;
+        min-height: auto;
+    }
+    
+    /* Turn the Grid into a Flex Column - FIXED */
+    #v360-wrapper .hero-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important; /* Gap handled by margins of children */
+    }
+
+    /* Remove grid-specific ordering and use natural document flow or specific order */
+    #v360-wrapper .text-col {
+        order: 1 !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 30px !important;
+    }
+
+    #v360-wrapper .form-col {
+        order: 2 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Fix the glass card on mobile */
+    #v360-wrapper .glass-card {
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 25px 20px !important;
+        box-sizing: border-box !important; /* Crucial for padding */
+    }
+    
+    /* Ensure form elements don't overflow */
+    #v360-wrapper .glass-card input,
+    #v360-wrapper .glass-card select,
+    #v360-wrapper .glass-card button {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Center text elements */
+    #v360-wrapper .hero-title {
+        text-align: center !important;
+        font-size: 2.2rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    #v360-wrapper .hero-sub {
+        text-align: center !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    #v360-wrapper .hero-gold-badge {
+        margin: 0 auto 15px auto !important;
+        display: table !important;
+    }
+
+    #v360-wrapper .hero-features {
+        justify-content: center !important;
+        margin-bottom: 30px !important;
+    }
+    
+    #v360-wrapper .btn-group {
+        justify-content: center !important;
+    }
+}
+
+/* Typography & Components */
+#v360-wrapper .hero-title {
+    line-height: 1.1;
+    margin-bottom: 20px;
+    font-weight: 800;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+#v360-wrapper .hero-sub {
+    font-size: 1.3rem;
+    line-height: 1.5;
+    margin-bottom: 25px;
+    color: rgba(255, 255, 255, 0.95);
+    font-weight: 400;
+}
+
+#v360-wrapper .hero-gold-badge {
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-secondary) 100%);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+}
+
+/* Feature badges (Trusted Bar) */
+#v360-wrapper .hero-features {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-bottom: 25px;
+}
+
+#v360-wrapper .hero-feature {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+#v360-wrapper .hero-feature i {
+    color: var(--gold);
+}
+
+/* Button group */
+#v360-wrapper .btn-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+#v360-wrapper .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+#v360-wrapper .btn-primary {
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+}
+
+#v360-wrapper .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+}
+
+/* Glass card form */
+#v360-wrapper .glass-card {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+
+#v360-wrapper .glass-card h3 {
+    margin-bottom: 20px;
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+#v360-wrapper .glass-card input,
+#v360-wrapper .glass-card select {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.9);
+    font-size: 1rem;
+    color: var(--text-dark);
+}
+
+#v360-wrapper .glass-card input:focus,
+#v360-wrapper .glass-card select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.3);
+}
+
+#v360-wrapper .glass-card button {
+    width: 100%;
+    padding: 14px;
+    background: var(--gold);
+    color: var(--dark);
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+#v360-wrapper .glass-card button:hover {
+    background: var(--gold-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* ... rest of your CSS remains the same ... */
+/* Buttons */
+#v360-wrapper .btn-call {
+    background: linear-gradient(135deg, var(--primary) 0%, #2563eb 100%);
+}
+
+#v360-wrapper .btn-whatsapp {
+    background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+#v360-wrapper .btn-submit {
+    width: 100%;
+    justify-content: center;
+    padding: 12px 20px !important;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+#v360-wrapper .btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+    filter: brightness(1.1);
+}
+
+#v360-wrapper .btn-small {
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    min-height: 40px;
+    min-width: auto;
+}
+
+/* Service Grid Layout */
+#v360-wrapper .service-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+}
+
+#v360-wrapper .service-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    border: 1px solid #e2e8f0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#v360-wrapper .service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+#v360-wrapper .service-card-img {
+    height: 200px;
+    overflow: hidden;
+}
+
+#v360-wrapper .service-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+#v360-wrapper .service-card:hover img {
+    transform: scale(1.05);
+}
+
+#v360-wrapper .service-card-content {
+    padding: 25px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#v360-wrapper .service-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+#v360-wrapper .service-card p {
+    color: var(--text-gray);
+    margin-bottom: 20px;
+    flex-grow: 1;
+}
+
+/* Zigzag Layout - 6+ Lines of Text */
+#v360-wrapper .zigzag-item {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    margin-bottom: 60px;
+}
+
+#v360-wrapper .zigzag-item:last-child {
+    margin-bottom: 0;
+}
+
+#v360-wrapper .zigzag-item.reverse {
+    flex-direction: row-reverse;
+}
+
+#v360-wrapper .zigzag-content,
+#v360-wrapper .zigzag-img-wrap {
+    flex: 1;
+}
+
+#v360-wrapper .zigzag-img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    height: 400px;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+#v360-wrapper .zigzag-img:hover {
+    transform: scale(1.02);
+}
+
+#v360-wrapper .zigzag-content h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: var(--primary);
+    line-height: 1.2;
+}
+
+#v360-wrapper .zigzag-content p {
+    margin-bottom: 25px;
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+/* Zigzag Text Lines - Ensure minimum 6 lines */
+#v360-wrapper .zigzag-content .service-description {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#v360-wrapper .zigzag-content .service-line {
+    position: relative;
+    padding-left: 20px;
+    font-size: 1rem;
+    color: var(--text-gray);
+}
+
+#v360-wrapper .zigzag-content .service-line:before {
+    content: "�";
+    color: var(--gold);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+/* Infographic Grid */
+#v360-wrapper .infographic-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 30px !important;
+    margin-top: 40px;
+    width: 100% !important;
+}
+
+#v360-wrapper .infographic-item {
+    background: white;
+    border-radius: 20px;
+    padding: 30px 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    transition: all 0.4s ease;
+    border: 1px solid #e2e8f0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+#v360-wrapper .infographic-item:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+}
+
+#v360-wrapper .infographic-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.8rem;
+    color: white;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+#v360-wrapper .infographic-number {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+#v360-wrapper .infographic-item h4 {
+    margin: 10px 0 15px 0;
+    color: var(--text-dark);
+    font-size: 1.3rem;
+}
+
+#v360-wrapper .infographic-item p {
+    color: var(--text-gray);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Internal Links */
+#v360-wrapper .internal-links-section {
+    background: linear-gradient(135deg, #f8fafc 0%, white 100%);
+    border-radius: 20px;
+    padding: 40px;
+    margin: 40px 0;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+#v360-wrapper .internal-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 25px;
+}
+
+#v360-wrapper .internal-link-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.4s ease;
+    text-decoration: none;
+    color: var(--text-dark);
+    display: block;
+    height: 100%;
+}
+
+#v360-wrapper .internal-link-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    border-color: var(--primary);
+}
+
+#v360-wrapper .link-icon {
+    color: var(--primary);
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    width: 50px;
+    height: 50px;
+    background: rgba(30, 64, 175, 0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* FAQ */
+#v360-wrapper .faq-item {
+    margin-bottom: 15px;
+    background: white;
+    border-radius: 15px;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+#v360-wrapper .faq-question {
+    padding: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f8fafc;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+#v360-wrapper .faq-answer {
+    padding: 0 25px 25px;
+    display: none;
+    color: var(--text-gray);
+    border-top: 1px solid #f1f5f9;
+    padding-top: 20px;
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+/* Reviews */
+#v360-wrapper .review-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    border-left: 5px solid #fbbf24;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+#v360-wrapper .review-card p {
+    font-style: italic;
+    color: #475569;
+    line-height: 1.7;
+    font-size: 1.05rem;
+    margin-bottom: 15px;
+}
+
+#v360-wrapper .review-rating {
+    color: #fbbf24;
+    margin-top: 10px;
+    font-size: 1rem;
+}
+
+/* Areas Served */
+#v360-wrapper .pill-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+}
+
+#v360-wrapper .pill {
+    background: white;
+    border: 1px solid #e2e8f0;
+    padding: 10px 22px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    color: var(--text-gray);
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+#v360-wrapper .pill:hover {
+    background: var(--light-bg);
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* Footer - Enhanced with Social Links */
+#v360-wrapper .site-footer {
+    background: #1e293b;
+    color: white;
+    padding: 60px 0 20px;
+    margin-top: 60px;
+}
+
+#v360-wrapper .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+#v360-wrapper .footer-info h3,
+#v360-wrapper .footer-links h4,
+#v360-wrapper .footer-services h4,
+#v360-wrapper .footer-contact h4 {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+#v360-wrapper .footer-info h3:after,
+#v360-wrapper .footer-links h4:after,
+#v360-wrapper .footer-services h4:after,
+#v360-wrapper .footer-contact h4:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: var(--gold);
+}
+
+#v360-wrapper .footer-info p {
+    color: #94a3b8;
+    margin-bottom: 20px;
+    line-height: 1.6;
+}
+
+/* Social Links */
+#v360-wrapper .social-links {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+#v360-wrapper .social-links a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    transition: var(--transition);
+}
+
+#v360-wrapper .social-links a:hover {
+    background: var(--gold);
+    color: var(--dark);
+    transform: translateY(-3px);
+}
+
+#v360-wrapper .footer-links ul,
+#v360-wrapper .footer-services ul {
+    list-style: none;
+    padding: 0;
+}
+
+#v360-wrapper .footer-links li,
+#v360-wrapper .footer-services li {
+    margin-bottom: 12px;
+}
+
+#v360-wrapper .footer-links a,
+#v360-wrapper .footer-services a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+#v360-wrapper .footer-links a i,
+#v360-wrapper .footer-services a i {
+    color: var(--gold);
+    font-size: 0.8rem;
+}
+
+#v360-wrapper .footer-links a:hover,
+#v360-wrapper .footer-services a:hover {
+    color: white;
+    padding-left: 5px;
+}
+
+#v360-wrapper .footer-contact p {
+    color: #94a3b8;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+#v360-wrapper .footer-contact a {
+    color: #94a3b8;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+#v360-wrapper .footer-contact a:hover {
+    color: white;
+}
+
+#v360-wrapper .footer-bottom {
+    border-top: 1px solid #334155;
+    padding-top: 25px;
+    text-align: center;
+    color: #94a3b8;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+#v360-wrapper .footer-bottom p {
+    margin-bottom: 0;
+}
+
+#v360-wrapper .footer-bottom-links {
+    display: flex;
+    gap: 20px;
+}
+
+#v360-wrapper .footer-bottom-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+#v360-wrapper .footer-bottom-links a:hover {
+    color: white;
+}
+
+/* ========== ULTIMATE MOBILE RESPONSIVE STYLES ========== */
+@media (max-width: 991px) {
+    #v360-wrapper .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    #v360-wrapper .service-grid,
+    #v360-wrapper .infographic-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}
+
+@media (max-width: 768px) {
+    #v360-wrapper .hero {
+        padding: 40px 0 60px;
+        min-height: auto;
+    }
+    
+    /* Turn the Grid into a Flex Column - FIXED */
+    #v360-wrapper .hero-content {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0 !important; /* Gap handled by margins of children */
+    }
+
+    /* Remove grid-specific ordering and use natural document flow or specific order */
+    #v360-wrapper .text-col {
+        order: 1 !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-bottom: 30px !important;
+    }
+
+    #v360-wrapper .form-col {
+        order: 2 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+
+    /* Fix the glass card on mobile */
+    #v360-wrapper .glass-card {
+        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 25px 20px !important;
+        box-sizing: border-box !important; /* Crucial for padding */
+    }
+    
+    /* Ensure form elements don't overflow */
+    #v360-wrapper .glass-card input,
+    #v360-wrapper .glass-card select,
+    #v360-wrapper .glass-card button {
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Center text elements */
+    #v360-wrapper .hero-title {
+        text-align: center !important;
+        font-size: 2.2rem !important;
+        margin-bottom: 15px !important;
+    }
+
+    #v360-wrapper .hero-sub {
+        text-align: center !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 20px !important;
+    }
+
+    #v360-wrapper .hero-gold-badge {
+        margin: 0 auto 15px auto !important;
+        display: table !important;
+    }
+
+    #v360-wrapper .hero-features {
+        justify-content: center !important;
+        margin-bottom: 30px !important;
+    }
+    
+    #v360-wrapper .btn-group {
+        justify-content: center !important;
+    }
+    
+    /* CRITICAL FIX: Hero content stacked properly with form visible */
+    #v360-wrapper .hero-content {
+        padding: 20px 0 !important;
+    }
+
+    /* Fix footer on mobile */
+    #v360-wrapper .footer-grid {
+        grid-template-columns: 1fr !important;
+        gap: 25px !important;
+    }
+    
+    #v360-wrapper .footer-info,
+    #v360-wrapper .footer-links,
+    #v360-wrapper .footer-services,
+    #v360-wrapper .footer-contact {
+        text-align: center !important;
+    }
+    
+    #v360-wrapper .social-links {
+        justify-content: center !important;
+    }
+    
+    #v360-wrapper .footer-links ul,
+    #v360-wrapper .footer-services ul {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+    }
+    
+    #v360-wrapper .footer-info h3:after,
+    #v360-wrapper .footer-links h4:after,
+    #v360-wrapper .footer-services h4:after,
+    #v360-wrapper .footer-contact h4:after {
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+    }
+
+    /* Container padding */
+    #v360-wrapper .container {
+        padding: 0 15px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #v360-wrapper .hero-title {
+        font-size: 1.8rem !important;
+    }
+    
+    #v360-wrapper .hero-sub {
+        font-size: 1.1rem !important;
+    }
+    
+    #v360-wrapper .zigzag-content h3 {
+        font-size: 1.5rem !important;
+    }
+    
+    #v360-wrapper .zigzag-img {
+        height: 220px !important;
+    }
+    
+    #v360-wrapper .section {
+        padding: 30px 0 !important;
+    }
+    
+    #v360-wrapper .glass-card {
+        padding: 15px !important;
+    }
+    
+    #v360-wrapper .glass-card input,
+    #v360-wrapper .glass-card select {
+        padding: 10px !important;
+    }
+}
+
+/* Fix for FAQ section */
+#v360-wrapper .faq-answer {
+    display: none;
+}
+
+#v360-wrapper .faq-answer[style*="display: block"] {
+    display: block !important;
+}
+
+/* Fix for internal links */
+#v360-wrapper .internal-links-section {
+    padding: 25px !important;
+}
+
+@media (max-width: 768px) {
+    #v360-wrapper .internal-links-section {
+        padding: 20px !important;
+    }
+    
+    #v360-wrapper .internal-links-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* Fix for menu text - prevent duplicate words */
+#v360-wrapper .internal-link-card h4,
+#v360-wrapper .service-card h3,
+#v360-wrapper .zigzag-content h3 {
+    word-break: break-word;
+}
