@@ -6,8 +6,8 @@
 // Business Configuration
 const siteConfig = {
     name: "Best Plumber Dubai Water Pump Services",
-    phone: "+923107228764",
-    whatsapp: "+923107228764",
+    phone: "+971 52 1729 561",
+    whatsapp: "+971 52 1729 561",
     email: "engnr825@gmail.com",
     city: "Dubai",
     country: "UAE",
