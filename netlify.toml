@@ -1,14 +1,21 @@
 [build]
   publish = "."
 
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# 1. NEW: The Edge Function for Ad Click Protection
+[[edge_functions]]
+  function = "block-clicks"
+  path = "/*"
 
+# 2. EXISTING: Your Security Headers
 [[headers]]
   for = "/*"
   [headers.values]
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
+
+# 3. FIXED: Proper 404 Error Handling (SEO Fix)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404
