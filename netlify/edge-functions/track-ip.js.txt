@@ -8,7 +8,7 @@ const gclid = url.searchParams.get("gclid");
 const safeIP = encodeURIComponent(visitorIP);
 const safeGCLID = encodeURIComponent(gclid);
 
-const sheetUrl = `https://script.google.com/macros/s/AKfycbzYTBTVtpVZRTi3e3sJ_pxDhZMZpmqM5j4QM3-SiLe77HQ-HvA3THPo0OovZhMAog/exec?ip=${safeIP}&gclid=${safeGCLID}`;
+const sheetUrl = `https://script.google.com/macros/s/AKfycbyx_WINVAU8eQe-qF4-F5JQ1avUOYqp0FeKb-hN2FrAFpxtZHusdkfc-jU8YhQ76upL/exec?ip=${safeIP}&gclid=${safeGCLID}`;
 
 try {
 await fetch(sheetUrl);
