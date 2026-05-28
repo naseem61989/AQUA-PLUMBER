@@ -1,0 +1,21 @@
+export default async (request, context) => {
+const url = new URL(request.url);
+
+if (url.searchParams.has("gclid")) {
+const visitorIP = context.ip || "0.0.0.0";
+const gclid = url.searchParams.get("gclid");
+
+const safeIP = encodeURIComponent(visitorIP);
+const safeGCLID = encodeURIComponent(gclid);
+
+const sheetUrl = `https://script.google.com/macros/s/AKfycbzYTBTVtpVZRTi3e3sJ_pxDhZMZpmqM5j4QM3-SiLe77HQ-HvA3THPo0OovZhMAog/exec?ip=${safeIP}&gclid=${safeGCLID}`;
+
+try {
+await fetch(sheetUrl);
+} catch (error) {
+console.log("Error:", error);
+}
+}
+
+return context.next();
+};
