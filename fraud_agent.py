@@ -14,11 +14,13 @@ def get_suspicious_ips():
     try:
         # Sheet se data read karna
         df = pd.read_csv(SHEET_CSV_URL)
-        df['Time'] = pd.to_datetime(df['Time'])
+        
+        # FIX: Timezone ko UTC mein force kar diya taake mismatch error na aaye
+        df['Time'] = pd.to_datetime(df['Time'], utc=True)
         
         # Logic: Pichle 24 ghante mein 3 se zyada clicks wali IPs nikalna
-        now = datetime.datetime.now(datetime.timezone.utc)
-        last_24_hours = now - datetime.timedelta(hours=24)
+        now = pd.Timestamp.utcnow()
+        last_24_hours = now - pd.Timedelta(hours=24)
         df_recent = df[df['Time'] > last_24_hours]
         
         ip_counts = df_recent['IP'].value_counts()
