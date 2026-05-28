@@ -1,21 +1,19 @@
 [build]
-  publish = "."
+publish = "."
 
-# 1. NEW: The Edge Function for Ad Click Protection
 [[edge_functions]]
-  function = "block-clicks"
-  path = "/*"
+function = "track-ip"
+path = "/*"
 
-# 2. EXISTING: Your Security Headers
 [[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
+for = "/*"
 
-# 3. FIXED: Proper 404 Error Handling (SEO Fix)
+[headers.values]
+X-Frame-Options = "DENY"
+X-XSS-Protection = "1; mode=block"
+X-Content-Type-Options = "nosniff"
+
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 404
+from = "/*"
+to = "/index.html"
+status = 404
