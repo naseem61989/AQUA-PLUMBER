@@ -1,0 +1,33 @@
+name: Click Fraud Agent Run
+
+on:
+  schedule:
+    - cron: '*/5 * * * *' 
+  workflow_dispatch: 
+
+jobs:
+  run-python-agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas google-ads
+
+      - name: Create Google Ads Config File
+        run: |
+          echo "developer_token: ${{ secrets.DEV_TOKEN }}" >> google-ads.yaml
+          echo "client_id: ${{ secrets.CLIENT_ID }}" >> google-ads.yaml
+          echo "client_secret: ${{ secrets.CLIENT_SECRET }}" >> google-ads.yaml
+          echo "refresh_token: ${{ secrets.REFRESH_TOKEN }}" >> google-ads.yaml
+          echo "use_proto_plus: True" >> google-ads.yaml
+
+      - name: Run Fraud Agent
+        run: python fraud_agent.py
