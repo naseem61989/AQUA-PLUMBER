@@ -6,24 +6,24 @@ from google.ads.googleads.errors import GoogleAdsException
 # 1. Sheet CSV URL
 SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1s1KNzCtgn1SI3EsR93AArMey-cPA_hp1wG70hF5H_Qs/export?format=csv"
 
-# 2. Clients Dictionary (Aapke 10 Accounts)
+# 2. Clients Dictionary (Updated with your specific site names)
 CLIENT_ACCOUNTS = {
-    "Site_1": {"customer_id": "5345847360", "campaign_id": "23225528606"},
-    "Site_2": {"customer_id": "9896735391", "campaign_id": "23774070662"},
-    "Site_3": {"customer_id": "1917484525", "campaign_id": "23425384015"},
-    "Site_4": {"customer_id": "7847863590", "campaign_id": "21377716270"},
-    "Site_5": {"customer_id": "9906499431", "campaign_id": "22163455644"},
-    "Site_6": {"customer_id": "2070760058", "campaign_id": "22395702636"},
-    "Site_7": {"customer_id": "4337360239", "campaign_id": "22052849918"},
-    "Site_8": {"customer_id": "2228623049", "campaign_id": "23014979991"},
-    "Site_9": {"customer_id": "7367369491", "campaign_id": "18368441225"},
-    "Site_10": {"customer_id": "9137459513", "campaign_id": "21878163240"}
+    "Aqua Plumber": {"customer_id": "5345847360", "campaign_id": "23225528606"},
+    "autorepair-dubai": {"customer_id": "9896735391", "campaign_id": "23774070662"},
+    "Awais Ac Plumber": {"customer_id": "1917484525", "campaign_id": "23425384015"},
+    "fine appliance repair": {"customer_id": "7847863590", "campaign_id": "21377716270"},
+    "seoblogy": {"customer_id": "9906499431", "campaign_id": "22163455644"},
+    "carpentery services": {"customer_id": "2070760058", "campaign_id": "22395702636"},
+    "Ijaz Appliance Repair": {"customer_id": "4337360239", "campaign_id": "22052849918"},
+    "Appliance repair Imtiaz": {"customer_id": "2228623049", "campaign_id": "23014979991"},
+    "Adnan handyman services": {"customer_id": "7367369491", "campaign_id": "18368441225"},
+    "Bin Technical Wahab": {"customer_id": "9137459513", "campaign_id": "21878163240"}
 }
 
 def get_suspicious_ips_for_client(df, website_name):
     try:
+        # Check if necessary columns exist
         if 'Website' not in df.columns or 'Device_ID' not in df.columns or 'Is_Bot' not in df.columns:
-            print(f"Warning: Sheet headers missing for {website_name}.")
             return []
 
         client_df = df[df['Website'] == website_name]
@@ -49,7 +49,6 @@ def get_suspicious_ips_for_client(df, website_name):
         device_counts = humans_df['Device_ID'].value_counts()
         bad_devices = device_counts[device_counts >= 3].index.tolist()
         for device in bad_devices:
-            # Block ALL IPs associated with this bad device
             device_ips = humans_df[humans_df['Device_ID'] == device]['IP'].unique()
             for ip in device_ips:
                 ips_to_block.add(ip)
@@ -76,7 +75,7 @@ def block_ip_in_google_ads(client, customer_id, campaign_id, ip_address):
     criterion.ip_block.ip_address = ip_address
     
     try:
-        campaign_criterion_response = campaign_criterion_service.mutate_campaign_criteria(
+        campaign_criterion_service.mutate_campaign_criteria(
             customer_id=customer_id, 
             operations=[campaign_criterion_operation]
         )
@@ -89,7 +88,7 @@ def block_ip_in_google_ads(client, customer_id, campaign_id, ip_address):
             print(f"Failed to block IP {ip_address}: {ex.error_code}")
 
 def main():
-    print("Starting Advanced Click Fraud Agent (Device Fingerprinting + Bot Detection)...")
+    print("Starting Advanced Click Fraud Agent...")
     
     try:
         df = pd.read_csv(SHEET_CSV_URL)
