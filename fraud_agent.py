@@ -3,10 +3,10 @@ import datetime
 from google.ads.googleads.client import GoogleAdsClient
 from google.ads.googleads.errors import GoogleAdsException
 
-# 1. Aapki Sheet ka exact CSV export link
+# 1. Sheet CSV URL
 SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1s1KNzCtgn1SI3EsR93AArMey-cPA_hp1wG70hF5H_Qs/export?format=csv"
 
-# 2. Tamam 10 Clients Ki List (Dashes hata kar sirf numbers daale gaye hain)
+# 2. Clients Dictionary (Aapke 10 Accounts)
 CLIENT_ACCOUNTS = {
     "Site_1": {"customer_id": "5345847360", "campaign_id": "23225528606"},
     "Site_2": {"customer_id": "9896735391", "campaign_id": "23774070662"},
@@ -22,28 +22,48 @@ CLIENT_ACCOUNTS = {
 
 def get_suspicious_ips_for_client(df, website_name):
     try:
-        # Check karein ke Sheet mein 'Website' ka column mojood hai ya nahi
-        if 'Website' not in df.columns:
-            print(f"Warning: 'Website' column not found in Google Sheet. Make sure your JS/PHP script is sending it.")
+        if 'Website' not in df.columns or 'Device_ID' not in df.columns or 'Is_Bot' not in df.columns:
+            print(f"Warning: Sheet headers missing for {website_name}.")
             return []
 
-        # Sirf us specific client ki website ka data filter karein
         client_df = df[df['Website'] == website_name]
-        
         if client_df.empty:
             return []
 
-        # Logic: Pichle 24 ghante mein 3 se zyada clicks wali IPs nikalna
+        # Filter last 24 hours
         now = pd.Timestamp.utcnow()
         last_24_hours = now - pd.Timedelta(hours=24)
         df_recent = client_df[client_df['Time'] > last_24_hours]
         
-        ip_counts = df_recent['IP'].value_counts()
-        fraud_ips = ip_counts[ip_counts >= 3].index.tolist()
+        ips_to_block = set()
+
+        # RULE 1: Immediate Block for Robotic Bots (1st Click)
+        bots_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() == 'True']
+        for ip in bots_df['IP'].unique():
+            ips_to_block.add(ip)
+
+        # Separate human traffic for 3-strike rules
+        humans_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() != 'True']
+
+        # RULE 2: Device Fingerprint Strike (If same device changes IP 3 times)
+        device_counts = humans_df['Device_ID'].value_counts()
+        bad_devices = device_counts[device_counts >= 3].index.tolist()
+        for device in bad_devices:
+            # Block ALL IPs associated with this bad device
+            device_ips = humans_df[humans_df['Device_ID'] == device]['IP'].unique()
+            for ip in device_ips:
+                ips_to_block.add(ip)
+
+        # RULE 3: Normal IP Strike (3 clicks from same IP)
+        ip_counts = humans_df['IP'].value_counts()
+        bad_ips = ip_counts[ip_counts >= 3].index.tolist()
+        for ip in bad_ips:
+            ips_to_block.add(ip)
         
-        return fraud_ips
+        return list(ips_to_block)
+
     except Exception as e:
-        print(f"[{website_name}] Data filter karne mein masla aaya: {e}")
+        print(f"[{website_name}] Error filtering data: {e}")
         return []
 
 def block_ip_in_google_ads(client, customer_id, campaign_id, ip_address):
@@ -62,39 +82,35 @@ def block_ip_in_google_ads(client, customer_id, campaign_id, ip_address):
         )
         print(f"Successfully blocked IP: {ip_address} in Campaign {campaign_id}")
     except GoogleAdsException as ex:
-        # Ignore karein agar IP pehle se block list mein mojood hai
         error_msg = str(ex)
         if "CriterionError.CRITERION_ALREADY_EXISTS" in error_msg:
-            print(f"IP {ip_address} is already blocked in Campaign {campaign_id}.")
+            print(f"IP {ip_address} is already blocked.")
         else:
-            print(f"Failed to block IP {ip_address} in account {customer_id}: {ex.error_code}")
+            print(f"Failed to block IP {ip_address}: {ex.error_code}")
 
 def main():
-    print("Starting Global Click Fraud Agent for Multiple Accounts...")
+    print("Starting Advanced Click Fraud Agent (Device Fingerprinting + Bot Detection)...")
     
-    # Ek hi dafa Google Sheet read karein taake API aur Time dono bachein
     try:
         df = pd.read_csv(SHEET_CSV_URL)
         df['Time'] = pd.to_datetime(df['Time'], utc=True)
     except Exception as e:
-        print(f"Global Sheet load karne mein masla aaya: {e}")
+        print(f"Global Sheet load failed: {e}")
         return
 
-    # Google Ads Client ek hi dafa load karein (MCC credentials ke sath)
     try:
         googleads_client = GoogleAdsClient.load_from_storage("google-ads.yaml")
     except Exception as e:
-        print(f"Error initializing Google Ads API: {e}")
+        print(f"Error initializing API: {e}")
         return
 
-    # Loop: Har account ko baari baari check aur clean karein
     for site_name, account_data in CLIENT_ACCOUNTS.items():
         print(f"\n--- Checking Fraud for: {site_name} ---")
         
         fraud_ips = get_suspicious_ips_for_client(df, site_name)
         
         if not fraud_ips:
-            print(f"No suspicious clicks found for {site_name}.")
+            print(f"No suspicious activity found.")
             continue
             
         cust_id = account_data["customer_id"]
