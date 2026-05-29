@@ -37,7 +37,7 @@ def get_suspicious_ips_for_client(df, website_name):
         
         ips_to_block = set()
 
-        # RULE 1: Immediate Block for Robotic Bots (1st Click)
+        # RULE 1: Immediate Block for Robotic Bots or VPNs (1st Click)
         bots_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() == 'True']
         for ip in bots_df['IP'].unique():
             ips_to_block.add(ip)
