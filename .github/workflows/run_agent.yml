@@ -2,8 +2,8 @@ name: Click Fraud Agent Run
 
 on:
   schedule:
-    - cron: '*/5 * * * *' 
-  workflow_dispatch: 
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
 
 jobs:
   run-python-agent:
@@ -23,11 +23,12 @@ jobs:
 
       - name: Create Google Ads Config File
         run: |
-          echo "developer_token: ${{ secrets.DEV_TOKEN }}" >> google-ads.yaml
+          echo "developer_token: ${{ secrets.DEV_TOKEN }}" > google-ads.yaml
           echo "client_id: ${{ secrets.CLIENT_ID }}" >> google-ads.yaml
           echo "client_secret: ${{ secrets.CLIENT_SECRET }}" >> google-ads.yaml
           echo "refresh_token: ${{ secrets.REFRESH_TOKEN }}" >> google-ads.yaml
           echo "use_proto_plus: True" >> google-ads.yaml
+          echo "login_customer_id: 6543283870" >> google-ads.yaml
 
       - name: Run Fraud Agent
         run: python fraud_agent.py
