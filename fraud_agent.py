@@ -1,12 +1,13 @@
 import pandas as pd
 import datetime
+import ipaddress
 from google.ads.googleads.client import GoogleAdsClient
 from google.ads.googleads.errors import GoogleAdsException
 
 # 1. Sheet CSV URL
 SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/1s1KNzCtgn1SI3EsR93AArMey-cPA_hp1wG70hF5H_Qs/export?format=csv"
 
-# 2. Clients Dictionary (Updated with your specific site names)
+# 2. Clients Dictionary
 CLIENT_ACCOUNTS = {
     "Aqua Plumber": {"customer_id": "5345847360", "campaign_id": "23225528606"},
     "autorepair-dubai": {"customer_id": "9896735391", "campaign_id": "23774070662"},
@@ -20,9 +21,17 @@ CLIENT_ACCOUNTS = {
     "Bin Technical Wahab": {"customer_id": "9137459513", "campaign_id": "21878163240"}
 }
 
+def is_valid_ipv4(ip_str):
+    """Helper function to strictly check if a string is a valid IPv4 address."""
+    try:
+        # Google Ads IP blocking primarily supports IPv4 at the campaign level.
+        ip = ipaddress.IPv4Address(ip_str)
+        return True
+    except ValueError:
+        return False
+
 def get_suspicious_ips_for_client(df, website_name):
     try:
-        # Check if necessary columns exist
         if 'Website' not in df.columns or 'Device_ID' not in df.columns or 'Is_Bot' not in df.columns:
             return []
 
@@ -30,34 +39,36 @@ def get_suspicious_ips_for_client(df, website_name):
         if client_df.empty:
             return []
 
-        # Filter last 24 hours
         now = pd.Timestamp.utcnow()
         last_24_hours = now - pd.Timedelta(hours=24)
         df_recent = client_df[client_df['Time'] > last_24_hours]
         
         ips_to_block = set()
 
-        # RULE 1: Immediate Block for Robotic Bots or VPNs (1st Click)
+        # RULE 1: Immediate Block for Bots
         bots_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() == 'True']
         for ip in bots_df['IP'].unique():
-            ips_to_block.add(ip)
+            if is_valid_ipv4(str(ip)): # ONLY add if it is a valid IP
+                ips_to_block.add(ip)
 
         # Separate human traffic for 3-strike rules
         humans_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() != 'True']
 
-        # RULE 2: Device Fingerprint Strike (If same device changes IP 3 times)
+        # RULE 2: Device Fingerprint Strike
         device_counts = humans_df['Device_ID'].value_counts()
         bad_devices = device_counts[device_counts >= 3].index.tolist()
         for device in bad_devices:
             device_ips = humans_df[humans_df['Device_ID'] == device]['IP'].unique()
             for ip in device_ips:
-                ips_to_block.add(ip)
+                if is_valid_ipv4(str(ip)):
+                    ips_to_block.add(ip)
 
-        # RULE 3: Normal IP Strike (3 clicks from same IP)
+        # RULE 3: Normal IP Strike
         ip_counts = humans_df['IP'].value_counts()
         bad_ips = ip_counts[ip_counts >= 3].index.tolist()
         for ip in bad_ips:
-            ips_to_block.add(ip)
+            if is_valid_ipv4(str(ip)):
+                ips_to_block.add(ip)
         
         return list(ips_to_block)
 
@@ -81,11 +92,14 @@ def block_ip_in_google_ads(client, customer_id, campaign_id, ip_address):
         )
         print(f"Successfully blocked IP: {ip_address} in Campaign {campaign_id}")
     except GoogleAdsException as ex:
+        # Correctly extracting the error message to avoid script crash
         error_msg = str(ex)
-        if "CriterionError.CRITERION_ALREADY_EXISTS" in error_msg:
+        if "CRITERION_ALREADY_EXISTS" in error_msg:
             print(f"IP {ip_address} is already blocked.")
         else:
-            print(f"Failed to block IP {ip_address}: {ex.error_code}")
+            print(f"Failed to block IP {ip_address}. Error: {ex.error.message if hasattr(ex, 'error') else error_msg}")
+    except Exception as e:
+        print(f"Unexpected error while blocking {ip_address}: {e}")
 
 def main():
     print("Starting Advanced Click Fraud Agent...")
