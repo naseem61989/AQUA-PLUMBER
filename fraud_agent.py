@@ -113,6 +113,11 @@ def main():
     try:
         df = pd.read_csv(SHEET_CSV_URL)
         df['Time'] = pd.to_datetime(df['Time'], utc=True)
+        
+        # Merge duplicate entries sharing the same GCLID (keeps the latest entry with complete JS data)
+        if 'GCLID' in df.columns:
+            df = df.drop_duplicates(subset=['GCLID'], keep='last')
+            
     except Exception as e:
         print(f"Global Sheet load failed: {e}")
         return
