@@ -21,9 +21,10 @@ CLIENT_ACCOUNTS = {
     "Bin Technical Wahab": {"customer_id": "9137459513", "campaign_id": "21878163240"}
 }
 
-def is_valid_ipv4(ip_str):
+# UPDATE: IPv4 aur IPv6 dono ko handle karne ke liye function change kiya hai
+def is_valid_ip(ip_str):
     try:
-        ip = ipaddress.IPv4Address(ip_str)
+        ipaddress.ip_address(ip_str)
         return True
     except ValueError:
         return False
@@ -39,43 +40,53 @@ def get_suspicious_ips_for_client(df, website_name):
 
         now = pd.Timestamp.utcnow()
         last_24_hours = now - pd.Timedelta(hours=24)
-        df_recent = client_df[client_df['Time'] > last_24_hours]
+        
+        # .copy() use kiya taake aagay Time_On_Page add karte waqt warning na aaye
+        df_recent = client_df[client_df['Time'] > last_24_hours].copy()
         
         ips_to_block = set()
+
+        # RULE 0: Bounce Rate Check (Time_On_Page < 3 seconds = Instant Block)
+        if 'Time_On_Page' in df_recent.columns:
+            # Empty ya kharab values ko 999 kar dega taake asli log block na hon
+            df_recent['Time_On_Page'] = pd.to_numeric(df_recent['Time_On_Page'], errors='coerce').fillna(999)
+            zero_bounce_df = df_recent[df_recent['Time_On_Page'] < 3]
+            for ip in zero_bounce_df['IP'].unique():
+                if is_valid_ip(str(ip)):
+                    ips_to_block.add(ip)
 
         bots_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() == 'True']
         
         # RULE 1a: Immediate Block for Bots (Current IP)
         for ip in bots_df['IP'].unique():
-            if is_valid_ipv4(str(ip)): 
+            if is_valid_ip(str(ip)): 
                 ips_to_block.add(ip)
 
-        # RULE 1b: Historical IP Block for Bot Devices (Agar Device bot thi, toh iski saari IPs ura do)
+        # RULE 1b: Historical IP Block for Bot Devices
         bot_devices = bots_df['Device_ID'].unique()
         for device in bot_devices:
             historical_ips = client_df[client_df['Device_ID'] == device]['IP'].unique()
             for ip in historical_ips:
-                if is_valid_ipv4(str(ip)):
+                if is_valid_ip(str(ip)):
                     ips_to_block.add(ip)
 
         # Separate human traffic for strike rules
         humans_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() != 'True']
 
-        # RULE 2: Device Fingerprint Strike (Updated to >= 3 Clicks)
-        # Ek Device par agar 3 clicks aayein, toh us device ki use ki gayi SAARI IPs block ho jayengi
+        # RULE 2: Device Fingerprint Strike (>= 3 Clicks)
         device_counts = humans_df['Device_ID'].value_counts()
         bad_devices = device_counts[device_counts >= 3].index.tolist()
         for device in bad_devices:
             device_ips = humans_df[humans_df['Device_ID'] == device]['IP'].unique()
             for ip in device_ips:
-                if is_valid_ipv4(str(ip)):
+                if is_valid_ip(str(ip)):
                     ips_to_block.add(ip)
 
-        # RULE 3: Normal IP Strike (Updated to >= 4 Clicks)
+        # RULE 3: Normal IP Strike (>= 4 Clicks)
         ip_counts = humans_df['IP'].value_counts()
         bad_ips = ip_counts[ip_counts >= 4].index.tolist()
         for ip in bad_ips:
-            if is_valid_ipv4(str(ip)):
+            if is_valid_ip(str(ip)):
                 ips_to_block.add(ip)
         
         return list(ips_to_block)
@@ -115,7 +126,7 @@ def main():
         df = pd.read_csv(SHEET_CSV_URL)
         df['Time'] = pd.to_datetime(df['Time'], utc=True)
         
-        # SMART GCLID MERGE: Ensures if any entry for a click is 'True', it gets prioritized
+        # SMART GCLID MERGE
         if 'GCLID' in df.columns:
             df['Is_Bot_Sort'] = df['Is_Bot'].astype(str).str.strip().str.title() == 'True'
             df = df.sort_values('Is_Bot_Sort', ascending=False).drop_duplicates(subset=['GCLID'], keep='first')
