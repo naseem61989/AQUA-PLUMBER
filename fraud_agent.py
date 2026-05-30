@@ -50,7 +50,7 @@ def get_suspicious_ips_for_client(df, website_name):
             if is_valid_ipv4(str(ip)): 
                 ips_to_block.add(ip)
 
-        # RULE 1b: Historical IP Block for Bot Devices
+        # RULE 1b: Historical IP Block for Bot Devices (Agar Device bot thi, toh iski saari IPs ura do)
         bot_devices = bots_df['Device_ID'].unique()
         for device in bot_devices:
             historical_ips = client_df[client_df['Device_ID'] == device]['IP'].unique()
@@ -61,18 +61,19 @@ def get_suspicious_ips_for_client(df, website_name):
         # Separate human traffic for strike rules
         humans_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() != 'True']
 
-        # RULE 2: Device Fingerprint Strike (Set to >= 5)
+        # RULE 2: Device Fingerprint Strike (Updated to >= 3 Clicks)
+        # Ek Device par agar 3 clicks aayein, toh us device ki use ki gayi SAARI IPs block ho jayengi
         device_counts = humans_df['Device_ID'].value_counts()
-        bad_devices = device_counts[device_counts >= 5].index.tolist()
+        bad_devices = device_counts[device_counts >= 3].index.tolist()
         for device in bad_devices:
             device_ips = humans_df[humans_df['Device_ID'] == device]['IP'].unique()
             for ip in device_ips:
                 if is_valid_ipv4(str(ip)):
                     ips_to_block.add(ip)
 
-        # RULE 3: Normal IP Strike (Set to >= 6 for shared IP safety in Dubai)
+        # RULE 3: Normal IP Strike (Updated to >= 4 Clicks)
         ip_counts = humans_df['IP'].value_counts()
-        bad_ips = ip_counts[ip_counts >= 6].index.tolist()
+        bad_ips = ip_counts[ip_counts >= 4].index.tolist()
         for ip in bad_ips:
             if is_valid_ipv4(str(ip)):
                 ips_to_block.add(ip)
