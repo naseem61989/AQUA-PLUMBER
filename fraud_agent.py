@@ -58,21 +58,21 @@ def get_suspicious_ips_for_client(df, website_name):
                 if is_valid_ipv4(str(ip)):
                     ips_to_block.add(ip)
 
-        # Separate human traffic for 3-strike rules
+        # Separate human traffic for strike rules
         humans_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() != 'True']
 
-        # RULE 2: Device Fingerprint Strike
+        # RULE 2: Device Fingerprint Strike (Set to >= 5)
         device_counts = humans_df['Device_ID'].value_counts()
-        bad_devices = device_counts[device_counts >= 3].index.tolist()
+        bad_devices = device_counts[device_counts >= 5].index.tolist()
         for device in bad_devices:
             device_ips = humans_df[humans_df['Device_ID'] == device]['IP'].unique()
             for ip in device_ips:
                 if is_valid_ipv4(str(ip)):
                     ips_to_block.add(ip)
 
-        # RULE 3: Normal IP Strike
+        # RULE 3: Normal IP Strike (Set to >= 6 for shared IP safety in Dubai)
         ip_counts = humans_df['IP'].value_counts()
-        bad_ips = ip_counts[ip_counts >= 3].index.tolist()
+        bad_ips = ip_counts[ip_counts >= 6].index.tolist()
         for ip in bad_ips:
             if is_valid_ipv4(str(ip)):
                 ips_to_block.add(ip)
@@ -114,9 +114,11 @@ def main():
         df = pd.read_csv(SHEET_CSV_URL)
         df['Time'] = pd.to_datetime(df['Time'], utc=True)
         
-        # Merge duplicate entries sharing the same GCLID (keeps the latest entry with complete JS data)
+        # SMART GCLID MERGE: Ensures if any entry for a click is 'True', it gets prioritized
         if 'GCLID' in df.columns:
-            df = df.drop_duplicates(subset=['GCLID'], keep='last')
+            df['Is_Bot_Sort'] = df['Is_Bot'].astype(str).str.strip().str.title() == 'True'
+            df = df.sort_values('Is_Bot_Sort', ascending=False).drop_duplicates(subset=['GCLID'], keep='first')
+            df = df.drop(columns=['Is_Bot_Sort'])
             
     except Exception as e:
         print(f"Global Sheet load failed: {e}")
