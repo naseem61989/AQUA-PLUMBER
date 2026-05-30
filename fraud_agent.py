@@ -22,9 +22,7 @@ CLIENT_ACCOUNTS = {
 }
 
 def is_valid_ipv4(ip_str):
-    """Helper function to strictly check if a string is a valid IPv4 address."""
     try:
-        # Google Ads IP blocking primarily supports IPv4 at the campaign level.
         ip = ipaddress.IPv4Address(ip_str)
         return True
     except ValueError:
@@ -45,11 +43,20 @@ def get_suspicious_ips_for_client(df, website_name):
         
         ips_to_block = set()
 
-        # RULE 1: Immediate Block for Bots
         bots_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() == 'True']
+        
+        # RULE 1a: Immediate Block for Bots (Current IP)
         for ip in bots_df['IP'].unique():
-            if is_valid_ipv4(str(ip)): # ONLY add if it is a valid IP
+            if is_valid_ipv4(str(ip)): 
                 ips_to_block.add(ip)
+
+        # RULE 1b: Historical IP Block for Bot Devices
+        bot_devices = bots_df['Device_ID'].unique()
+        for device in bot_devices:
+            historical_ips = client_df[client_df['Device_ID'] == device]['IP'].unique()
+            for ip in historical_ips:
+                if is_valid_ipv4(str(ip)):
+                    ips_to_block.add(ip)
 
         # Separate human traffic for 3-strike rules
         humans_df = df_recent[df_recent['Is_Bot'].astype(str).str.strip().str.title() != 'True']
@@ -92,7 +99,6 @@ def block_ip_in_google_ads(client, customer_id, campaign_id, ip_address):
         )
         print(f"Successfully blocked IP: {ip_address} in Campaign {campaign_id}")
     except GoogleAdsException as ex:
-        # Correctly extracting the error message to avoid script crash
         error_msg = str(ex)
         if "CRITERION_ALREADY_EXISTS" in error_msg:
             print(f"IP {ip_address} is already blocked.")
