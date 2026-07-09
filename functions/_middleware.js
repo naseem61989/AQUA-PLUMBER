@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
-<\/script>`;
+</script>`;
 
 export async function onRequest(context) {
   const response = await context.next();
@@ -44,17 +44,35 @@ export async function onRequest(context) {
   if (!contentType.includes("text/html")) {
     return response;
   }
+
+  // ============================================================
+  // CANONICAL URL   ⟵ PER-CLIENT: sirf CANONICAL_HOST change karo
+  // ============================================================
   const CANONICAL_HOST = "https://plumbers-dubai.com";
   const url = new URL(context.request.url);
   const canonicalUrl = CANONICAL_HOST + url.pathname;
   const CANONICAL = `<link rel="canonical" href="${canonicalUrl}">`;
 
-  // ── EDGE IP CAPTURE (Unknown IP ka fix) — ye 2 lines har site pe SAME ──
+  // ============================================================
+  // EDGE IP CAPTURE (Unknown IP ka fix)
+  // CF-Connecting-IP Cloudflare khud set karta hai — 0ms, fake nahi ho sakta.
+  // Ye 2 lines har site pe bilkul same rehti hain.
+  // ============================================================
   const clientIP  = String(context.request.headers.get("CF-Connecting-IP") || "Unknown").replace(/[^A-Za-z0-9_.:\-]/g, "");
   const ipCountry = String(context.request.headers.get("CF-IPCountry") || "").replace(/[^A-Za-z0-9_.:\-]/g, "");
 
-  const GA4 = `<script async src="https://www.googletagmanager.com/gtag/js?id=G-SR0827W9HM"><\/script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SR0827W9HM');<\/script>`;
-  const TRACKER = `<script>window._ftSite="Aqua Plumber";window._ftKey="CF-AQUA-2026-m4p8q2";window._ftIP="${clientIP}";window._ftCountry="${ipCountry}";<\/script><script src="https://cdn.jsdelivr.net/gh/clickadsprotector/fraud-tracker@main/tracker.js"><\/script>`;
+  // ============================================================
+  // GA4 TRACKING   ⟵ PER-CLIENT: agar GA4 ID alag hai to badlo
+  // ============================================================
+  const GA4 = `<script async src="https://www.googletagmanager.com/gtag/js?id=G-SR0827W9HM"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-SR0827W9HM');</script>`;
+
+  // ============================================================
+  // CLICK FRAUD TRACKER (ClickAdsProtector)
+  //   ⟵ PER-CLIENT: sirf _ftSite aur _ftKey change karo
+  //   window._ftIP + window._ftCountry ab tracker se PEHLE inject hote hain.
+  //   Tracker @main se aata hai — repo update = sab sites auto-update.
+  // ============================================================
+  const TRACKER = `<script>window._ftSite="Aqua Plumber";window._ftKey="CF-AQUA-2026-m4p8q2";window._ftIP="${clientIP}";window._ftCountry="${ipCountry}";</script><script src="https://cdn.jsdelivr.net/gh/clickadsprotector/fraud-tracker@main/tracker.js"></script>`;
 
   return new HTMLRewriter()
     .on("link[rel='canonical']", {
