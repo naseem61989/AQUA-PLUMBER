@@ -72,7 +72,7 @@ export async function onRequest(context) {
   //   window._ftIP + window._ftCountry ab tracker se PEHLE inject hote hain.
   //   Tracker @main se aata hai — repo update = sab sites auto-update.
   // ============================================================
-  const TRACKER = `<script>window._ftSite="Aqua Plumber";window._ftKey="CF-AQUA-2026-m4p8q2";window._ftIP="${clientIP}";window._ftCountry="${ipCountry}";</script><script src="https://cdn.jsdelivr.net/gh/clickadsprotector/fraud-tracker@main/tracker.js"></script>`;
+  const TRACKER = `<script>window._ftSite="aqua plumber";window._ftKey="CF-AQUA-2026-m4p8q2";window._ftIP="${clientIP}";window._ftCountry="${ipCountry}";</script><script src="https://cdn.jsdelivr.net/gh/clickadsprotector/fraud-tracker@main/tracker.js"></script>`;
 
   return new HTMLRewriter()
     .on("link[rel='canonical']", {
