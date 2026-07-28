@@ -1,8 +1,13 @@
-https://aqua-plumber.pages.dev/* https://plumbers-dubai.com/:splat 301
+# ── URL Normalization (Netlify + Cloudflare Pages compatible) ──
+# .htm → canonical clean URL (Netlify only — Cloudflare Pages skips this rule)
+/*.htm  https://plumbers-dubai.com/:splat  301
 
-# Netlify Redirects
-/* /index.html    200
-/pages/* /pages/:splat    200
-/services/* /services/:splat    200
-/categories/* /categories/:splat    200
-/blog/* /blog/:splat    200
+# /index.html at root → /
+/index.html  /  301
+
+# /page/index.html → /page/
+/*/index.html  /:splat/  301
+
+# NOTE: no "/* /404.html 404" catch-all here — Cloudflare Pages does not
+# support 404-status rules (it serves /404.html natively for missing paths,
+# and Netlify does the same). Adding it would just log CF parse errors.

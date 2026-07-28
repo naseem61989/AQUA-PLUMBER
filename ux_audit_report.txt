@@ -1,0 +1,13 @@
+UX AUDIT REPORT
+==================================================
+
+⚠ index.html
+    - missing <html lang>
+    - missing viewport meta
+    - missing meta description
+    - no <h1>
+
+--------------------------------------------------
+Pages checked : 7
+Clean pages   : 6
+Total issues  : 4

@@ -1,18 +1,18 @@
-// Main JavaScript for Best Plumber Dubai Water Pump Services
-// Generated: 2026-03-11 21:57:04
+// Main JavaScript for Aqua Plumber Dubai
+// Generated: 2026-07-28 08:03:38
 // PERMANENTLY FIXED: Form redirects to WhatsApp without page refresh
 // PERMANENTLY FIXED: FAQ toggles working perfectly
 
 // Business Configuration
 const siteConfig = {
-    name: "Best Plumber Dubai Water Pump Services",
-    phone: "+971 52 1729 561",
-    whatsapp: "+971 52 1729 561",
-    email: "engnr825@gmail.com",
+    name: "Aqua Plumber Dubai",
+    phone: "971521729561",
+    whatsapp: "971521729561",
+    email: "info@aquaplumberdubai.com",
     city: "Dubai",
     country: "UAE",
-    industry: "Plumbing and Water Pump Repair",
-    logo: "https://res.cloudinary.com/dyor4wsy0/image/upload/v1773251809/static_website/logos/logo_Aqua-plumber-dubai-water-pump-services.png"
+    industry: "Plumbing Services",
+    logo: "/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp"
 };
 
 // Social Media Links
@@ -55,15 +55,16 @@ window.handleLead = function(e) {
         data.append('Service', service);
         data.append('Email', email);
         data.append('Date', new Date().toLocaleString());
-        
-        fetch(window.v360Config.sheetUrl, { 
-            method: 'POST', 
-            body: data, 
-            mode: 'no-cors' 
+
+        fetch(window.v360Config.sheetUrl, {
+            method: 'POST',
+            body: data,
+            mode: 'no-cors'
         })
             .then(() => console.log('Lead saved to sheet'))
             .catch(err => console.error('Error saving lead:', err));
     }
+
     
     // Prepare WhatsApp message - FIXED: Clean phone number and proper encoding
     let whatsappNumber = window.v360Config?.whatsapp || siteConfig.whatsapp;
@@ -75,16 +76,24 @@ window.handleLead = function(e) {
     // Open WhatsApp in new tab (NOT redirect)
     const waUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
     window.open(waUrl, '_blank');
-    
-    // Show success message
-    alert(`Thank you, ${name}! WhatsApp will open in a new tab.`);
-    
-    // Reset form
-    if (e.target && typeof e.target.reset === 'function') {
-        e.target.reset();
+
+    // Show inline success message (replaces alert — agentic browser test pass + better UX)
+    const form = e.target;
+    if (form) {
+        form.reset();
+        const successDiv = document.createElement('div');
+        successDiv.id = 'form-success-msg';
+        successDiv.setAttribute('role', 'alert');
+        successDiv.style.cssText = 'background:#d1fae5;color:#065f46;border:1px solid #6ee7b7;border-radius:12px;padding:18px 24px;margin-top:16px;font-weight:600;font-size:1rem;text-align:center;';
+        successDiv.innerHTML = '&#10003; Thank you, ' + name + '! We’ll contact you on WhatsApp shortly.';
+        // Remove any old success msg first
+        const old = document.getElementById('form-success-msg');
+        if (old) old.remove();
+        form.parentNode.insertBefore(successDiv, form.nextSibling);
+        setTimeout(() => successDiv.remove(), 8000);
     }
-    
-    return false; // Additional prevention
+
+    return false;
 };
 
 // ========== PERMANENTLY FIXED: FAQ Toggle Functionality ==========
@@ -291,4 +300,35 @@ document.addEventListener('DOMContentLoaded', function() {
         childList: true,
         subtree: true
     });
+});
+
+// 🎨 Design Intelligence — scroll reveal (vanilla IntersectionObserver, no library)
+document.addEventListener('DOMContentLoaded', function () {
+  try {
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (!('IntersectionObserver' in window)) return;
+    var els = document.querySelectorAll('#v360-wrapper .section, main .section, body > .section');
+    if (!els.length) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('di-in'); io.unobserve(en.target); }
+      });
+    // threshold: 0 — reveal as soon as the FIRST pixel enters. threshold 0.12 never
+    // fired for tall stacked sections on mobile (zigzag = image + paragraphs stacked
+    // = section taller than ~8x viewport → 12% is unreachable → stuck invisible).
+    }, { threshold: 0, rootMargin: '0px 0px -60px 0px' });
+    var hidden = [];
+    els.forEach(function (el) {
+      // only sections still below the fold — above-fold content is never hidden (LCP-safe)
+      if (el.getBoundingClientRect().top > window.innerHeight * 0.9) {
+        el.classList.add('di-reveal');
+        io.observe(el);
+        hidden.push(el);
+      }
+    });
+    // Safety net: whatever happens, no section may stay hidden forever
+    setTimeout(function () {
+      hidden.forEach(function (el) { el.classList.add('di-in'); });
+    }, 8000);
+  } catch (e) { /* motion is enhancement only — never break the page */ }
 });
