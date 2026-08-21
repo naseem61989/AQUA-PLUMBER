@@ -3,49 +3,40 @@
 // karein — warna har lead do baar ginegi.
 // ============================================================
 const TRACKING_EVENTS = `<script>
-document.addEventListener('DOMContentLoaded', function() {
-  var AW_ID = "AW-16740553814";
-  var LBL = { phone: "RumHCI2v1OUcENaowq4-", whatsapp: "beXMCJCv1OUcENaowq4-", form: "gN3TCJOv1OUcENaowq4-" };
-  var SITE_KEY = "CF-AQUA-2026-m4p8q2";
-  var LEAD_URL = "https://clickadsprotector.com/api/lead";
-
-  function safe_gtag() {
-    if (typeof gtag === 'function') {
-      gtag.apply(null, arguments);
+(function () {
+  function initTracking() {
+    var AW_ID = "AW-16740553814";
+    var LBL = { phone: "RumHCI2v1OUcENaowq4-", whatsapp: "beXMCJCv1OUcENaowq4-", form: "gN3TCJOv1OUcENaowq4-" };
+    var SITE_KEY = "CF-AQUA-2026-m4p8q2";
+    var LEAD_URL = "https://clickadsprotector.com/api/lead";
+    function safe_gtag() {
+      if (typeof gtag === 'function') {
+        gtag.apply(null, arguments);
+      }
     }
-  }
 
-  var P = new URLSearchParams(window.location.search);
-  var gclid = P.get('gclid') || P.get('wbraid') || P.get('gbraid') || '';
-  try {
-    if (gclid) {
-      localStorage.setItem('cap_gclid', JSON.stringify({ v: gclid, t: Date.now() }));
-    } else {
-      var st = JSON.parse(localStorage.getItem('cap_gclid') || 'null');
-      if (st && st.v && (Date.now() - st.t) < 7776000000) { gclid = st.v; }
-    }
-  } catch (e) {}
-
-  if (gclid) {
-    document.querySelectorAll('form').forEach(function(form) {
-      if (form.querySelector('input[name="gclid"]')) return;
-      var h = document.createElement('input');
-      h.type = 'hidden'; h.name = 'gclid'; h.value = gclid;
-      form.appendChild(h);
-    });
-  }
-
-
-  // LEAD CAPTURE - the lead and the click that produced it.
-  // Every way a visitor can make contact goes through here, not just
-  // the form: on these sites a call or a WhatsApp tap IS the lead, and
-  // a job that started with a tap would otherwise be invisible to
-  // offline conversion upload.
-  function sendLead(kind, form, botFill) {
+    var P = new URLSearchParams(window.location.search);
+    var gclid = P.get('gclid') || P.get('wbraid') || P.get('gbraid') || '';
     try {
-      // A tap carries no fields of its own, but the visitor may have
-      // typed into the form before deciding to call instead.
-      var scope = form || document;
+      if (gclid) {
+        localStorage.setItem('cap_gclid', JSON.stringify({ v: gclid, t: Date.now() }));
+      } else {
+        var st = JSON.parse(localStorage.getItem('cap_gclid') || 'null');
+        if (st && st.v && (Date.now() - st.t) < 7776000000) { gclid = st.v; }
+      }
+    } catch (e) {}
+
+    if (gclid) {
+      var _forms = document.querySelectorAll('form');
+      for (var _i = 0; _i < _forms.length; _i++) {
+        if (_forms[_i].querySelector('input[name="gclid"]')) continue;
+        var _h = document.createElement('input');
+        _h.type = 'hidden'; _h.name = 'gclid'; _h.value = gclid;
+        _forms[_i].appendChild(_h);
+      }
+    }
+
+    function readLead(scope) {
       var val = function(sel) {
         var el = scope.querySelector(sel);
         return el && el.value ? String(el.value).trim() : '';
@@ -57,57 +48,90 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return '';
       };
-      // No click id means nothing could ever be uploaded to Google. For
-      // a bare tap that leaves nothing worth storing; a form still has
-      // a name and number the office can use.
-      if (kind !== 'form' && !gclid) return;
-      navigator.sendBeacon(LEAD_URL, new Blob([JSON.stringify({
-        client_token: SITE_KEY,
-        kind: kind,
+      return {
         name:    pick(['name','fullname','your-name','firstname']),
         phone:   pick(['phone','tel','mobile','number']),
         email:   pick(['email','your-email']),
         service: pick(['svc','service','subject','message']),
-        page_url: window.location.href,
-        gclid: gclid || pick(['gclid']),
-        bot_suspected: botFill ? 1 : 0
-      })], { type: 'text/plain' }));
-    } catch (e) {}
-  }
-  function track(ga4Name, lbl, params) {
-    safe_gtag('event', ga4Name, params);
-    if (AW_ID && lbl) {
-      safe_gtag('event', 'conversion', {
-        send_to: AW_ID + '/' + lbl,
-        transport_type: 'beacon'
-      });
+        gclid:   pick(['gclid'])
+      };
     }
-  }
 
-  // 1. PHONE CLICK
-  document.querySelectorAll('a[href^="tel:"]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      track('phone_call_click', LBL.phone, {
-        phone_number: el.getAttribute('href'),
-        page_location: window.location.href
-      });
-      sendLead('call', null, false);
-    });
-  });
+    // LEAD CAPTURE - the lead and the click that produced it.
+    // Every way a visitor can make contact goes through here, not just the
+    // form: on these sites a call or a WhatsApp tap IS the lead, and a job
+    // that started with a tap would otherwise be invisible to offline
+    // conversion upload.
+    function sendLead(kind, form, botFill) {
+      try {
+        // No click id means nothing could ever be uploaded to Google. For a
+        // bare tap that leaves nothing worth storing; a form still has a name
+        // and number the office can use.
+        if (kind !== 'form' && !gclid) return;
+        // A tap carries no fields of its own, but the visitor may have typed
+        // into the form before deciding to call instead.
+        var d = readLead(form || document);
+        // An empty form is not a lead. It is the page's own validation
+        // refusing the submit, and sending it would put a blank row in front
+        // of whoever taps through the list.
+        if (kind === 'form' && !d.name && !d.phone && !d.email) return;
+        navigator.sendBeacon(LEAD_URL, new Blob([JSON.stringify({
+          client_token: SITE_KEY,
+          kind: kind,
+          name:    d.name,
+          phone:   d.phone,
+          email:   d.email,
+          service: d.service,
+          page_url: window.location.href,
+          gclid: gclid || d.gclid,
+          bot_suspected: botFill ? 1 : 0
+        })], { type: 'text/plain' }));
+      } catch (e) {}
+    }
 
-  // 2. WHATSAPP CLICK
-  document.querySelectorAll('a[href*="wa.me"], a[href*="whatsapp"]').forEach(function(el) {
-    el.addEventListener('click', function() {
-      track('whatsapp_click', LBL.whatsapp, {
-        page_location: window.location.href
-      });
-      sendLead('whatsapp', null, false);
-    });
-  });
+    function track(ga4Name, lbl, params) {
+      safe_gtag('event', ga4Name, params);
+      if (AW_ID && lbl) {
+        safe_gtag('event', 'conversion', {
+          send_to: AW_ID + '/' + lbl,
+          transport_type: 'beacon'
+        });
+      }
+    }
 
-  // 3. FORM SUBMIT
-  document.querySelectorAll('form').forEach(function(form) {
-    form.addEventListener('submit', function() {
+    // Delegated on document rather than bound per element: themes and plugins
+    // add the popup form, the AJAX form and the sticky call bar AFTER load,
+    // and a listener bound at startup never sees any of them. Capture phase,
+    // so a page handler that stops propagation cannot hide a click either.
+    document.addEventListener('click', function (ev) {
+      var t = ev.target;
+      if (!t || !t.closest) return;
+      var tel = t.closest('a[href^="tel:"]');
+      if (tel) {
+        track('phone_call_click', LBL.phone, {
+          phone_number: tel.getAttribute('href'),
+          page_location: window.location.href
+        });
+        sendLead('call', null, false);
+        return;
+      }
+      var wa = t.closest('a[href*="wa.me"], a[href*="whatsapp"]');
+      if (wa) {
+        track('whatsapp_click', LBL.whatsapp, {
+          page_location: window.location.href
+        });
+        sendLead('whatsapp', null, false);
+      }
+    }, true);
+
+    // Capture matters twice over here. The page's own submit handler ends with
+    // form.reset() and it runs at the form, so reading the fields any later
+    // means reading a form that has already been cleared - the lead used to
+    // leave with an empty name and phone while WhatsApp still opened and every
+    // conversion still fired, so nothing looked broken anywhere.
+    document.addEventListener('submit', function (ev) {
+      var form = ev.target;
+      if (!form || form.tagName !== 'FORM') return;
       var hp = form.querySelector('.ftv11-hp');
       var botFill = !!(hp && hp.value !== '');
       track('form_submit', botFill ? '' : LBL.form, {
@@ -116,9 +140,14 @@ document.addEventListener('DOMContentLoaded', function() {
         bot_suspected: botFill ? 1 : 0
       });
       sendLead('form', form, botFill);
-    });
-  });
-});
+    }, true);
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initTracking);
+  } else {
+    initTracking();
+  }
+})();
 </script>`;
 
 const EU_COUNTRIES = ["AT","BE","BG","HR","CY","CZ","DK","EE","FI","FR","DE","GR","HU","IE","IT","LV","LT","LU","MT","NL","PL","PT","RO","SK","SI","ES","SE","IS","LI","NO","GB","CH"];
