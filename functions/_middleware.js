@@ -26,15 +26,22 @@ const TRACKING_EVENTS = `<script>
       }
     } catch (e) {}
 
-    if (gclid) {
-      var _forms = document.querySelectorAll('form');
-      for (var _i = 0; _i < _forms.length; _i++) {
-        if (_forms[_i].querySelector('input[name="gclid"]')) continue;
-        var _h = document.createElement('input');
-        _h.type = 'hidden'; _h.name = 'gclid'; _h.value = gclid;
-        _forms[_i].appendChild(_h);
-      }
+    // The client's own form posts somewhere we never see - their CRM,
+    // their inbox - so it needs the click id carried on the form itself.
+    // Called again on submit, because a popup or an AJAX plugin can add
+    // a form long after this first pass.
+    function stampForm(f) {
+      if (!gclid || !f) return;
+      try {
+        if (f.querySelector('input[name="gclid"]')) return;
+        var h = document.createElement('input');
+        h.type = 'hidden'; h.name = 'gclid'; h.value = gclid;
+        f.appendChild(h);
+      } catch (e) {}
     }
+
+    var _forms = document.querySelectorAll('form');
+    for (var _i = 0; _i < _forms.length; _i++) { stampForm(_forms[_i]); }
 
     function readLead(scope) {
       var val = function(sel) {
@@ -132,6 +139,10 @@ const TRACKING_EVENTS = `<script>
     document.addEventListener('submit', function (ev) {
       var form = ev.target;
       if (!form || form.tagName !== 'FORM') return;
+      // Capture runs before the page's handler and before the form is
+      // serialised, so a form that appeared after load still leaves
+      // carrying the click id.
+      stampForm(form);
       var hp = form.querySelector('.ftv11-hp');
       var botFill = !!(hp && hp.value !== '');
       track('form_submit', botFill ? '' : LBL.form, {
