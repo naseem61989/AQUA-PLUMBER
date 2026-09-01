@@ -11,3 +11,46 @@
 # NOTE: no "/* /404.html 404" catch-all here — Cloudflare Pages does not
 # support 404-status rules (it serves /404.html natively for missing paths,
 # and Netlify does the same). Adding it would just log CF parse errors.
+
+# ─────────────────────────────────────────────────────────────────────────────
+#  ADDED 2026-09-01 — index recovery
+#
+#  Spam URLs are deliberately absent. The pre-2025 WordPress install was hacked
+#  with a Dutch/Greek online-gambling doorway campaign; redirecting that onto
+#  real plumbing pages would pass the spam association into the pages we want
+#  ranked. All ~2,241 of those URLs return 410 Gone from functions/_middleware.js.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── Broken sitewide navigation links ─────────────────────────────────────────
+# These four category pages are linked from the header, mobile menu and footer
+# under /services/, but they only exist under /categories/. Four 404s on every
+# page. The templates are fixed too; these rules catch anything already indexed.
+/services/emergency-plumbing            /categories/emergency-plumbing            301
+/services/general-plumbing-services     /categories/general-plumbing-services     301
+/services/pump-services                 /categories/pump-services                 301
+/services/specialized-plumbing-services /categories/specialized-plumbing-services 301
+
+# ── Legacy WordPress pages worth keeping (Search Console 404 export) ─────────
+/about-us               /pages/about                 301
+/about-us/              /pages/about                 301
+/home                   /                            301
+/home/                  /                            301
+/plumbing-service       /services/                   301
+/plumbing-service/      /services/                   301
+
+# The old Arabic emergency-plumber URL — still a real plumbing query.
+/emergency-plumber-dubai-water-heater-drain-pump-repair-*  /services/emergency-plumber  301
+
+# ── Older still, recovered from the Wayback Machine CDX index (2017–2024) ────
+/plumbing-services      /services/                   301
+/plumbing-services/     /services/                   301
+/plumbing-repair        /services/plumbing-repair    301
+/plumbing-repair/       /services/plumbing-repair    301
+/emergency-repair       /services/emergency-plumber  301
+/emergency-repair/      /services/emergency-plumber  301
+/about-plumbers         /pages/about                 301
+/about-plumbers/        /pages/about                 301
+/contact                /pages/contact               301
+/contact/               /pages/contact               301
+/contact-us             /pages/contact               301
+/contact-us/            /pages/contact               301
