@@ -175,7 +175,7 @@ function handleIconClick(e) {
 
 // ========== PERMANENTLY FIXED: Location Rendering Function ==========
 function renderLocations(locations) {
-    if (!locations || !Array.isArray(locations)) return;
+    if (!locations || !Array.isArray(locations) || locations.length === 0) return;
     
     // Desktop locations container
     const desktopContainer = document.getElementById('desktop-locations-container');
