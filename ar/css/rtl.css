@@ -1,0 +1,72 @@
+/* RTL Stylesheet - Auto Generated */
+/* Applied when target_lang is 'ar' */
+
+body {
+    direction: rtl;
+    text-align: right;
+}
+
+#v360-wrapper .hero-content {
+    direction: rtl;
+}
+
+#v360-wrapper .hero-features {
+    justify-content: flex-end;
+}
+
+#v360-wrapper .btn-group {
+    justify-content: flex-end;
+}
+
+#v360-wrapper .zigzag-item {
+    flex-direction: row-reverse;
+}
+
+#v360-wrapper .zigzag-item.reverse {
+    flex-direction: row;
+}
+
+#v360-wrapper .service-card.cv-icon_left {
+    flex-direction: row-reverse;
+}
+
+#v360-wrapper .footer-grid {
+    direction: rtl;
+}
+
+#v360-wrapper .footer-links ul {
+    padding-right: 0;
+}
+
+#v360-wrapper .infographic-grid {
+    direction: rtl;
+}
+
+#v360-wrapper .pill-container {
+    direction: rtl;
+}
+
+#v360-wrapper .faq-question {
+    flex-direction: row-reverse;
+}
+
+#v360-wrapper .glass-card input,
+#v360-wrapper .glass-card select {
+    text-align: right;
+    direction: rtl;
+}
+
+#v360-wrapper .pro-internal-link {
+    flex-direction: row-reverse;
+}
+
+@media (max-width: 768px) {
+    #v360-wrapper .hero-title,
+    #v360-wrapper .hero-sub {
+        text-align: center !important;
+    }
+    
+    #v360-wrapper .btn-group {
+        justify-content: center !important;
+    }
+}
