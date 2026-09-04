@@ -1546,24 +1546,40 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "HomeAndConstructionBusiness",
+      "@type": "Plumber",
       "@id": "https://plumbers-dubai.com/#organization",
       "name": "Aqua Plumber Dubai Water Pump Services",
       "url": "https://plumbers-dubai.com/",
-      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
-      "description": "خدمات plumbing and water pump repair الاحترافية في Dubai",
+      "telephone": "+971 52 172 9561",
+      "description": "إصلاح تسريب السخان دبي بسرعة وبدون فوضى. وصول خلال 30 دقيقة، فنيون موثوقون وخدمة مضمونة في دبي. احجز الآن.",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "دبي مارينا"
+        },
+        {
+          "@type": "City",
+          "name": "وسط مدينة دبي"
+        },
+        {
+          "@type": "City",
+          "name": "الخليج التجاري"
+        },
+        {
+          "@type": "City",
+          "name": "جميرا"
+        },
+        {
+          "@type": "City",
+          "name": "ديرة"
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
         "addressLocality": "Dubai",
         "addressRegion": "Dubai",
         "addressCountry": "AE"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+971 52 172 9561",
-        "contactType": "customer service",
-        "areaServed": "Dubai"
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -1590,63 +1606,16 @@
       "sameAs": [
         "https://maps.google.com/?cid=5449920674698058405"
       ],
-      "telephone": "+971 52 172 9561"
-    },
-    {
-      "@type": "Plumber",
-      "@id": "https://plumbers-dubai.com/#localbusiness",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "description": "إصلاح تسريب السخان دبي بسرعة وبدون فوضى. وصول خلال 30 دقيقة، فنيون موثوقون وخدمة مضمونة في دبي. احجز الآن.",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
+      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971 52 172 9561",
+        "contactType": "customer service",
+        "areaServed": "Dubai"
       },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "دبي مارينا"
-        },
-        {
-          "@type": "City",
-          "name": "وسط مدينة دبي"
-        },
-        {
-          "@type": "City",
-          "name": "الخليج التجاري"
-        },
-        {
-          "@type": "City",
-          "name": "جميرا"
-        },
-        {
-          "@type": "City",
-          "name": "ديرة"
-        }
-      ],
+      "priceRange": "$$",
       "keywords": "إصلاح تسريب السخان دبي, أفضل فني سخان في دبي, إصلاح سخان طارئ دبي, تسريب سخان بالقرب مني, صيانة سخان رخيصة دبي, تسريب من صمام السخان, السخان لا يسخن الماء, استبدال ثرموستات السخان, تسريب من وصلات السخان, تلف عنصر تسخين الماء",
       "image": "https://plumbers-dubai.com/images/services/water-heater-leak-repair-zigzag-78fe9e.webp",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Plumbing And Water Pump Repair Services",
@@ -1708,23 +1677,14 @@
             }
           }
         ]
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
-      ]
+      }
     },
     {
       "@type": "Service",
       "name": "إصلاح تسريب السخان",
       "description": "أكوا بلمبر دبي متخصصة في إصلاح تسريبات السخانات وأعطال أنظمة السباكة في المنازل والفلل بجميع مناطق دبي.<br><br>إذا لاحظت تقطيراً أو تسريباً حول سخان المياه، فخدمة إصلاح تسريب السخان دبي لدينا تبدأ بتش",
       "provider": {
-        "@id": "https://plumbers-dubai.com/#localbusiness"
+        "@id": "https://plumbers-dubai.com/#organization"
       },
       "areaServed": {
         "@type": "Place",
@@ -1939,50 +1899,6 @@
           "name": "تسليك المجاري",
           "url": "https://plumbers-dubai.com/ar/services/sewer-drain-cleaning-dubai/"
         }
-      ]
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://plumbers-dubai.com/#professionalservice",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "description": "إصلاح تسريب السخان دبي بسرعة وبدون فوضى. وصول خلال 30 دقيقة، فنيون موثوقون وخدمة مضمونة في دبي. احجز الآن.",
-      "areaServed": {
-        "@type": "Place",
-        "name": "Dubai"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
       ]
     },
     {

@@ -1646,24 +1646,40 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "HomeAndConstructionBusiness",
+      "@type": "Plumber",
       "@id": "https://plumbers-dubai.com/#organization",
       "name": "Aqua Plumber Dubai Water Pump Services",
       "url": "https://plumbers-dubai.com/",
-      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
-      "description": "خدمات plumbing and water pump repair الاحترافية في Dubai",
+      "telephone": "+971 52 172 9561",
+      "description": "سباكة المطابخ في دبي بحلول سريعة ونظيفة، استجابة خلال 30 دقيقة، فنيون موثوقون وخدمة مضمونة، مع تصليح خلاط مياه المطبخ. اتصل الآن",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "دبي مارينا"
+        },
+        {
+          "@type": "City",
+          "name": "وسط مدينة دبي"
+        },
+        {
+          "@type": "City",
+          "name": "الخليج التجاري"
+        },
+        {
+          "@type": "City",
+          "name": "جميرا"
+        },
+        {
+          "@type": "City",
+          "name": "ديرة"
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
         "addressLocality": "Dubai",
         "addressRegion": "Dubai",
         "addressCountry": "AE"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+971 52 172 9561",
-        "contactType": "customer service",
-        "areaServed": "Dubai"
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -1690,63 +1706,16 @@
       "sameAs": [
         "https://maps.google.com/?cid=5449920674698058405"
       ],
-      "telephone": "+971 52 172 9561"
-    },
-    {
-      "@type": "Plumber",
-      "@id": "https://plumbers-dubai.com/#localbusiness",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "description": "سباكة المطابخ في دبي بحلول سريعة ونظيفة، استجابة خلال 30 دقيقة، فنيون موثوقون وخدمة مضمونة، مع تصليح خلاط مياه المطبخ. اتصل الآن",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
+      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971 52 172 9561",
+        "contactType": "customer service",
+        "areaServed": "Dubai"
       },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "دبي مارينا"
-        },
-        {
-          "@type": "City",
-          "name": "وسط مدينة دبي"
-        },
-        {
-          "@type": "City",
-          "name": "الخليج التجاري"
-        },
-        {
-          "@type": "City",
-          "name": "جميرا"
-        },
-        {
-          "@type": "City",
-          "name": "ديرة"
-        }
-      ],
+      "priceRange": "$$",
       "keywords": "تصليح خلاط مياه المطبخ, تأسيس سباكة الحمام والمطبخ, سباكة الحمامات والمطابخ, حوض المطبخ, خط الصرف, فلتر المطبخ, قلب خلاط المطبخ, مواسير pvc, تأسيس سباكة الحمام والمطبخ, سباكة الحمامات والمطابخ",
       "image": "https://plumbers-dubai.com/images/services/kitchen-plumbing-grid-f50bf7.webp",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Plumbing And Water Pump Repair Services",
@@ -1808,23 +1777,14 @@
             }
           }
         ]
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
-      ]
+      }
     },
     {
       "@type": "Service",
       "name": "سباكة المطابخ",
       "description": "أكوا بلمبر دبي تنفذ أعمال سباكة المطابخ الكاملة — من التمديد الأولي حتى التركيب النهائي للخلاطات والأحواض في منازل وفلل دبي.<br><br>إذا واجهتك مشكلة تسريب، فريقنا متخصص في تصليح خلاط مياه المطبخ بقطع ",
       "provider": {
-        "@id": "https://plumbers-dubai.com/#localbusiness"
+        "@id": "https://plumbers-dubai.com/#organization"
       },
       "areaServed": {
         "@type": "Place",
@@ -2035,50 +1995,6 @@
           "name": "تسليك المجاري",
           "url": "https://plumbers-dubai.com/ar/services/sewer-drain-cleaning-dubai/"
         }
-      ]
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://plumbers-dubai.com/#professionalservice",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "description": "سباكة المطابخ في دبي بحلول سريعة ونظيفة، استجابة خلال 30 دقيقة، فنيون موثوقون وخدمة مضمونة، مع تصليح خلاط مياه المطبخ. اتصل الآن",
-      "areaServed": {
-        "@type": "Place",
-        "name": "Dubai"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
       ]
     },
     {

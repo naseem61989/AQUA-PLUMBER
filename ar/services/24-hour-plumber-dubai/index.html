@@ -1546,24 +1546,40 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "HomeAndConstructionBusiness",
+      "@type": "Plumber",
       "@id": "https://plumbers-dubai.com/#organization",
       "name": "Aqua Plumber Dubai Water Pump Services",
       "url": "https://plumbers-dubai.com/",
-      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
-      "description": "خدمات plumbing and water pump repair الاحترافية في Dubai",
+      "telephone": "+971 52 172 9561",
+      "description": "سباك 24 ساعة في دبي لإصلاحات سريعة وموثوقة للمنازل والشركات. استجابة خلال 30 دقيقة، فنيون معتمدون، اتصل الآن للحجز.",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "دبي مارينا"
+        },
+        {
+          "@type": "City",
+          "name": "وسط مدينة دبي"
+        },
+        {
+          "@type": "City",
+          "name": "الخليج التجاري"
+        },
+        {
+          "@type": "City",
+          "name": "جميرا"
+        },
+        {
+          "@type": "City",
+          "name": "ديرة"
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
         "addressLocality": "Dubai",
         "addressRegion": "Dubai",
         "addressCountry": "AE"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+971 52 172 9561",
-        "contactType": "customer service",
-        "areaServed": "Dubai"
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -1590,63 +1606,16 @@
       "sameAs": [
         "https://maps.google.com/?cid=5449920674698058405"
       ],
-      "telephone": "+971 52 172 9561"
-    },
-    {
-      "@type": "Plumber",
-      "@id": "https://plumbers-dubai.com/#localbusiness",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "description": "سباك 24 ساعة في دبي لإصلاحات سريعة وموثوقة للمنازل والشركات. استجابة خلال 30 دقيقة، فنيون معتمدون، اتصل الآن للحجز.",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
+      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971 52 172 9561",
+        "contactType": "customer service",
+        "areaServed": "Dubai"
       },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "دبي مارينا"
-        },
-        {
-          "@type": "City",
-          "name": "وسط مدينة دبي"
-        },
-        {
-          "@type": "City",
-          "name": "الخليج التجاري"
-        },
-        {
-          "@type": "City",
-          "name": "جميرا"
-        },
-        {
-          "@type": "City",
-          "name": "ديرة"
-        }
-      ],
+      "priceRange": "$$",
       "keywords": "سباك 24 ساعة, سباك ٢٤ ساعه, سباك صحي, خدمة ليلية, دبي, صيانة طارئة, سباك ٢٤ ساعه, سباك 24 ساعة 2026, 24/7 سباك 24 ساعة dubai",
       "image": "https://plumbers-dubai.com/images/services/24-plumbing-24-hours-grid-bccbda.webp",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Plumbing And Water Pump Repair Services",
@@ -1708,23 +1677,14 @@
             }
           }
         ]
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
-      ]
+      }
     },
     {
       "@type": "Service",
       "name": "سباك 24 ساعة",
       "description": "أكوا بلمبر دبي تقدم خدمات السباكة وإصلاح مضخات المياه في جميع أرجاء دبي، نهاراً وليلاً دون انقطاع.<br><br>سواء كان عندك تسرب مفاجئ أو عطل في المضخة، فريقنا من سباك 24 ساعة جاهز للتدخل الفوري في أي لحظ",
       "provider": {
-        "@id": "https://plumbers-dubai.com/#localbusiness"
+        "@id": "https://plumbers-dubai.com/#organization"
       },
       "areaServed": {
         "@type": "Place",
@@ -1943,50 +1903,6 @@
           "name": "تسليك المجاري",
           "url": "https://plumbers-dubai.com/ar/services/sewer-drain-cleaning-dubai/"
         }
-      ]
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://plumbers-dubai.com/#professionalservice",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "description": "سباك 24 ساعة في دبي لإصلاحات سريعة وموثوقة للمنازل والشركات. استجابة خلال 30 دقيقة، فنيون معتمدون، اتصل الآن للحجز.",
-      "areaServed": {
-        "@type": "Place",
-        "name": "Dubai"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
       ]
     },
     {

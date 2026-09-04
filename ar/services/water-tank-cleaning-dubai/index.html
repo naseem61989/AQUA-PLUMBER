@@ -1557,24 +1557,40 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "HomeAndConstructionBusiness",
+      "@type": "Plumber",
       "@id": "https://plumbers-dubai.com/#organization",
       "name": "Aqua Plumber Dubai Water Pump Services",
       "url": "https://plumbers-dubai.com/",
-      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
-      "description": "خدمات plumbing and water pump repair الاحترافية في Dubai",
+      "telephone": "+971 52 172 9561",
+      "description": "تنظيف خزانات المياه في دبي لتعقيم آمن ومياه أنقى. استجابة خلال 60 دقيقة، فنيون معتمدون وخدمة موثوقة. احجز الآن.",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "دبي مارينا"
+        },
+        {
+          "@type": "City",
+          "name": "وسط مدينة دبي"
+        },
+        {
+          "@type": "City",
+          "name": "الخليج التجاري"
+        },
+        {
+          "@type": "City",
+          "name": "جميرا"
+        },
+        {
+          "@type": "City",
+          "name": "ديرة"
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
         "addressLocality": "Dubai",
         "addressRegion": "Dubai",
         "addressCountry": "AE"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+971 52 172 9561",
-        "contactType": "customer service",
-        "areaServed": "Dubai"
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -1601,63 +1617,16 @@
       "sameAs": [
         "https://maps.google.com/?cid=5449920674698058405"
       ],
-      "telephone": "+971 52 172 9561"
-    },
-    {
-      "@type": "Plumber",
-      "@id": "https://plumbers-dubai.com/#localbusiness",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "description": "تنظيف خزانات المياه في دبي لتعقيم آمن ومياه أنقى. استجابة خلال 60 دقيقة، فنيون معتمدون وخدمة موثوقة. احجز الآن.",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
+      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971 52 172 9561",
+        "contactType": "customer service",
+        "areaServed": "Dubai"
       },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "دبي مارينا"
-        },
-        {
-          "@type": "City",
-          "name": "وسط مدينة دبي"
-        },
-        {
-          "@type": "City",
-          "name": "الخليج التجاري"
-        },
-        {
-          "@type": "City",
-          "name": "جميرا"
-        },
-        {
-          "@type": "City",
-          "name": "ديرة"
-        }
-      ],
+      "priceRange": "$$",
       "keywords": "تنظيف خزانات المياه, شركة تنظيف خزانات, تنظيف خزانات, شركات تنظيف خزانات المياه, تنظيف الخزان الارضي, خزان أرضي, خزان علوي, دبي, مواد تعقيم, شفط الرواسب",
       "image": "https://plumbers-dubai.com/images/services/water-tank-cleaning-grid-4208c6.webp",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Plumbing And Water Pump Repair Services",
@@ -1719,23 +1688,14 @@
             }
           }
         ]
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
-      ]
+      }
     },
     {
       "@type": "Service",
       "name": "تنظيف خزانات المياه",
       "description": "أكوا بلمبر دبي متخصصة في صيانة أنظمة السباكة ومضخات المياه للمنازل والفلل في جميع أنحاء دبي.<br><br>خدمة تنظيف خزانات المياه لدينا تشمل الفحص الكامل والتعقيم المعتمد، لضمان مياه نظيفة وآمنة على مدار ا",
       "provider": {
-        "@id": "https://plumbers-dubai.com/#localbusiness"
+        "@id": "https://plumbers-dubai.com/#organization"
       },
       "areaServed": {
         "@type": "Place",
@@ -2006,50 +1966,6 @@
           "name": "تسليك المجاري",
           "url": "https://plumbers-dubai.com/ar/services/sewer-drain-cleaning-dubai/"
         }
-      ]
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://plumbers-dubai.com/#professionalservice",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "description": "تنظيف خزانات المياه في دبي لتعقيم آمن ومياه أنقى. استجابة خلال 60 دقيقة، فنيون معتمدون وخدمة موثوقة. احجز الآن.",
-      "areaServed": {
-        "@type": "Place",
-        "name": "Dubai"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
       ]
     },
     {

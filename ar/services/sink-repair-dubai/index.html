@@ -1629,24 +1629,40 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "HomeAndConstructionBusiness",
+      "@type": "Plumber",
       "@id": "https://plumbers-dubai.com/#organization",
       "name": "Aqua Plumber Dubai Water Pump Services",
       "url": "https://plumbers-dubai.com/",
-      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
-      "description": "خدمات plumbing and water pump repair الاحترافية في Dubai",
+      "telephone": "+971 52 172 9561",
+      "description": "إصلاح المغسلة في دبي بسرعة وبدون إزعاج. استجابة خلال 30 دقيقة، فنيون موثوقون وخدمة شفافة. احجز الآن لتصليح مغسلة الحمام.",
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "دبي مارينا"
+        },
+        {
+          "@type": "City",
+          "name": "وسط مدينة دبي"
+        },
+        {
+          "@type": "City",
+          "name": "الخليج التجاري"
+        },
+        {
+          "@type": "City",
+          "name": "جميرا"
+        },
+        {
+          "@type": "City",
+          "name": "ديرة"
+        }
+      ],
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
         "addressLocality": "Dubai",
         "addressRegion": "Dubai",
         "addressCountry": "AE"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "telephone": "+971 52 172 9561",
-        "contactType": "customer service",
-        "areaServed": "Dubai"
       },
       "geo": {
         "@type": "GeoCoordinates",
@@ -1673,63 +1689,16 @@
       "sameAs": [
         "https://maps.google.com/?cid=5449920674698058405"
       ],
-      "telephone": "+971 52 172 9561"
-    },
-    {
-      "@type": "Plumber",
-      "@id": "https://plumbers-dubai.com/#localbusiness",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "description": "إصلاح المغسلة في دبي بسرعة وبدون إزعاج. استجابة خلال 30 دقيقة، فنيون موثوقون وخدمة شفافة. احجز الآن لتصليح مغسلة الحمام.",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
+      "logo": "https://plumbers-dubai.com/images/logos/logo-gpt-aqua-plumber-dubai-1785225804.webp",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+971 52 172 9561",
+        "contactType": "customer service",
+        "areaServed": "Dubai"
       },
-      "areaServed": [
-        {
-          "@type": "City",
-          "name": "دبي مارينا"
-        },
-        {
-          "@type": "City",
-          "name": "وسط مدينة دبي"
-        },
-        {
-          "@type": "City",
-          "name": "الخليج التجاري"
-        },
-        {
-          "@type": "City",
-          "name": "جميرا"
-        },
-        {
-          "@type": "City",
-          "name": "ديرة"
-        }
-      ],
+      "priceRange": "$$",
       "keywords": "تصليح مغسلة الحمام, السيفون, وصلة الصرف, ثعبان التسليك, حوض السيراميك, تصليح مغسلة الحمام 2026, 24/7 إصلاح المغسلة dubai",
       "image": "https://plumbers-dubai.com/images/services/sink-repair-zigzag-8e3072.webp",
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
         "name": "Plumbing And Water Pump Repair Services",
@@ -1791,23 +1760,14 @@
             }
           }
         ]
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
-      ]
+      }
     },
     {
       "@type": "Service",
       "name": "إصلاح المغسلة",
       "description": "أكوا بلمبر دبي تتخصص في إصلاح أعطال المياه والصرف الصحي في المنازل والفلل بجميع أنحاء دبي.<br><br>سواء كانت مغسلتك تعاني من تسريب أو انسداد، فإن تصليح مغسلة الحمام لدينا يتم بسرعة واحترافية على يد فني",
       "provider": {
-        "@id": "https://plumbers-dubai.com/#localbusiness"
+        "@id": "https://plumbers-dubai.com/#organization"
       },
       "areaServed": {
         "@type": "Place",
@@ -2022,50 +1982,6 @@
           "name": "تسليك المجاري",
           "url": "https://plumbers-dubai.com/ar/services/sewer-drain-cleaning-dubai/"
         }
-      ]
-    },
-    {
-      "@type": "ProfessionalService",
-      "@id": "https://plumbers-dubai.com/#professionalservice",
-      "name": "Aqua Plumber Dubai Water Pump Services",
-      "url": "https://plumbers-dubai.com/",
-      "telephone": "+971 52 172 9561",
-      "description": "إصلاح المغسلة في دبي بسرعة وبدون إزعاج. استجابة خلال 30 دقيقة، فنيون موثوقون وخدمة شفافة. احجز الآن لتصليح مغسلة الحمام.",
-      "areaServed": {
-        "@type": "Place",
-        "name": "Dubai"
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "127 39th St - Al Barsha Third - Al Barsha",
-        "addressLocality": "Dubai",
-        "addressRegion": "Dubai",
-        "addressCountry": "AE"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 25.0838028,
-        "longitude": 55.2016982
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": [
-            "Monday",
-            "Tuesday",
-            "Wednesday",
-            "Thursday",
-            "Friday",
-            "Saturday",
-            "Sunday"
-          ],
-          "opens": "00:00",
-          "closes": "23:59"
-        }
-      ],
-      "hasMap": "https://maps.google.com/?cid=5449920674698058405",
-      "sameAs": [
-        "https://maps.google.com/?cid=5449920674698058405"
       ]
     },
     {
